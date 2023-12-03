@@ -7,6 +7,7 @@ from sklearn.model_selection import StratifiedKFold
 import numpy as np
 from sklearn.metrics import roc_auc_score
 import numpy as np
+import pickle
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 
@@ -38,8 +39,8 @@ VOCAB_SIZE = 30522
 text_input = "The quick brown fox jumped over the lazy dog."
 
 # Creating Byte-Pair Encoding tokenizer
-raw_tokenizer = SentencePieceBPETokenizer()
 
+raw_tokenizer = SentencePieceBPETokenizer()
 # Adding normalization and pre_tokenizer
 raw_tokenizer.normalizer = normalizers.Sequence([normalizers.NFC()] + [normalizers.Lowercase()] if LOWERCASE else [])
 raw_tokenizer.pre_tokenizer = pre_tokenizers.ByteLevel()
@@ -61,7 +62,12 @@ special_tokens = ["[UNK]", "[PAD]", "[CLS]", "[SEP]", "[MASK]"]
 # raw_tokenizer.train_from_iterator(train_corp_iter())
 
 """For single input"""
-raw_tokenizer.train_from_iterator(text_input) #This should be pretrained 
+#raw_tokenizer.train_from_iterator(text_input) #This should be pretrained 
+
+#Load Tokenizer
+with open('raw_tokenizer.pkl', 'rb') as file:
+    raw_tokenizer = pickle.load(file)
+
 tokenizer = PreTrainedTokenizerFast(
     tokenizer_object = raw_tokenizer,
     unk_token="[UNK]",
@@ -80,11 +86,18 @@ def dummy(text):
     """
     return text
 
+
 vectorizer = TfidfVectorizer(ngram_range=(3, 5), lowercase=False, sublinear_tf=True, analyzer = 'word',
     tokenizer = dummy,
     preprocessor = dummy,
     token_pattern = None#, strip_accents='unicode'
                             )
+
+#load pre-trained vectorizer
+with open('vectorizer.pkl', 'rb') as file:
+    vectorizer = pickle.load(file)
+
+
 
 vectorizer.fit(tokenized_input)
 
