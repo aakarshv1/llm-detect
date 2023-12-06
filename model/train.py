@@ -8,6 +8,7 @@ import numpy as np
 from sklearn.metrics import roc_auc_score
 import numpy as np
 import pickle
+import dill
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 
@@ -107,7 +108,7 @@ vectorizer = TfidfVectorizer(ngram_range=(3, 5), lowercase=False, sublinear_tf=T
 tf_train = vectorizer.fit_transform(tokenized_texts_train)
 
 filename = 'vectorizer2.sav'
-pickle.dump(vectorizer, open(filename, 'wb'))
+dill.dump(vectorizer, open(filename, 'wb'))
 
 tf_test = vectorizer.transform(tokenized_texts_test)
 

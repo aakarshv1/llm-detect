@@ -8,6 +8,7 @@ import numpy as np
 from sklearn.metrics import roc_auc_score
 import numpy as np
 import pickle
+import dill
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 
@@ -52,8 +53,8 @@ def dummy(text):
 
 
 def classify(text_input):
-    train = pd.read_csv("./model/train_v2_drcat_02.csv", sep=",")
-    y_train = train["label"].values
+    # train = pd.read_csv("./model/train_v2_drcat_02.csv", sep=",")
+    # y_train = train["label"].values
 
     with open("./model/tokenizer2.sav", "rb") as file:
         tokenizer = pickle.load(file)
@@ -68,7 +69,7 @@ def classify(text_input):
     #     tokenized_texts_train.append(tokenizer.tokenize(text))
 
     with open("./model/vectorizer2.sav", "rb") as file:
-        vectorizer = pickle.load(file)
+        vectorizer = dill.load(file)
 
     tf_test = vectorizer.transform(tokenized_texts_test)
 

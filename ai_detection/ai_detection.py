@@ -2,11 +2,13 @@
 from rxconfig import config
 
 from model.classify import classify
+from model.dummy import dummy
 
 import reflex as rx
 
 docs_url = "https://reflex.dev/docs/getting-started/introduction"
 filename = f"{config.app_name}/{config.app_name}.py"
+
 
 
 class State(rx.State):
@@ -15,6 +17,7 @@ class State(rx.State):
     prompt: str = ""
 
     def check_text(self):
+        
         print(classify(self.prompt))
         pass
 
