@@ -1,2 +1,6 @@
+*.db
+*.py[cod]
 .DS_Store
+.web
+__pycache__/
 model/train_v2_drcat_02.csv
