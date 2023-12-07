@@ -17,11 +17,9 @@ class State(rx.State):
     percent: int = 0
 
     def check_text(self):
-        print(self.prompt, classify(self.prompt))
-        self.percent = int(100 * classify(self.prompt))
-        pass
-
-    pass
+        percent = classify(self.prompt)
+        print(self.prompt, percent)
+        self.percent = int(100 * percent)
 
 
 def index() -> rx.Component:
@@ -37,9 +35,27 @@ def index() -> rx.Component:
                         rx.button("Check", on_click=State.check_text, width="100%"),
                         width="100%",
                     ),
-                    rx.hstack(
-                        rx.text(f"{State.percent}% AI", width="5%"),
-                        rx.progress(value=State.percent, width="100%"),
+                    rx.vstack(
+                        rx.cond(
+                            State.percent > 50,
+                            rx.alert(
+                                rx.alert_icon(),
+                                rx.alert_title("AI text detected"),
+                                status="error",
+                                width="100%",
+                            ),
+                            rx.alert(
+                                rx.alert_icon(),
+                                rx.alert_title("Human text detected"),
+                                status="success",
+                                width="100%",
+                            ),
+                        ),
+                        rx.hstack(
+                            rx.text(f"{State.percent}% confidence", width="14%"),
+                            rx.progress(value=State.percent, width="100%"),
+                            width="100%",
+                        ),
                         width="100%",
                     ),
                     shadow="lg",
@@ -47,7 +63,7 @@ def index() -> rx.Component:
                     border_radius="lg",
                     width="100%",
                 ),
-                width="500%",
+                width="400%",
             ),
         ),
     )
