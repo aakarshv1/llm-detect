@@ -81,7 +81,7 @@ def classify(text_input):
 
     final_preds_bytePair = ensemble_bytePair.predict_proba(tf_test)[:, 1]
 
-    return f"Probability of being AI-generated: {final_preds_bytePair[0]* 100: .2f}%"
+    return final_preds_bytePair[0]
 
 
 if __name__ == "__main__":
