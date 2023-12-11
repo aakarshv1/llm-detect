@@ -45,7 +45,7 @@ The urgency of this issue is highlighted by the Kaggle competition, backed by Va
 
 ## Credits
 - Learned a lot from the open notebook from [Prem ChotePaint](https://www.kaggle.com/batprem)
-- [Hugging face bpe tokenizer] (https://huggingface.co/learn/nlp-course/chapter6/5?fw=pt)
+- [Hugging face bpe tokenizer](https://huggingface.co/learn/nlp-course/chapter6/5?fw=pt)
   
 ## Results (On-Going)
 ![Kaggle LeaderBoard](https://github.com/aakarshv1/llm-detect/blob/main/Kaggle%20Leaderboard.png)
